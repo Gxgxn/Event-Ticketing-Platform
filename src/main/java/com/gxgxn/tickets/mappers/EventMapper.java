@@ -2,6 +2,8 @@ package com.gxgxn.tickets.mappers;
 
 import com.gxgxn.tickets.domain.CreateEventRequest;
 import com.gxgxn.tickets.domain.CreateTicketTypeRequest;
+import com.gxgxn.tickets.domain.UpdateEventRequest;
+import com.gxgxn.tickets.domain.UpdateTicketTypeRequest;
 import com.gxgxn.tickets.domain.dtos.*;
 import com.gxgxn.tickets.domain.entities.Event;
 import com.gxgxn.tickets.domain.entities.TicketType;
@@ -20,4 +22,16 @@ public interface EventMapper {
     ListEventTicketTypeResponseDto toDto(TicketType ticketType);
 
     ListEventResponseDto toListEventResponseDto(Event event);
+
+    GetEventDetailsTicketTypesResponseDto toGetEventDetailsTicketTypesResponseDto(TicketType ticketType);
+
+    GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
+
+    UpdateTicketTypeRequest fromDto(UpdateTicketTypeRequestDto dto);
+
+    UpdateEventRequest fromDto(UpdateEventRequestDto dto);
+
+    UpdateTicketTypeResponseDto toUpdateTicketTypeResponseDto(TicketType ticketType);
+
+    UpdateEventResponseDto toUpdateEventResponseDto(Event event);
 }
