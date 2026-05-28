@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface QrCodeRepository extends JpaRepository<QrCode, UUID> {
     Optional<QrCode> findByTicketIdAndTicketPurchaserId(UUID ticketId, UUID ticketPurchaseId);
     Optional<QrCode> findByIdAndStatus(UUID id, QrCodeStatusEnum status);
+
 }
