@@ -1,7 +1,7 @@
 # ---- Build stage ----
 FROM node:22 AS build
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json .npmrc ./
 RUN npm ci
 COPY . .
 ARG VITE_OIDC_AUTHORITY
