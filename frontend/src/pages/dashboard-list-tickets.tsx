@@ -64,6 +64,11 @@ const DashboardListTickets: React.FC = () => {
       </div>
 
       <div className="max-w-lg mx-auto">
+        {tickets?.content.length === 0 && (
+          <p className="text-center text-gray-400 py-12">
+            No tickets yet. Browse events to purchase one!
+          </p>
+        )}
         {tickets?.content.map((ticketItem) => (
           <Link to={`/dashboard/tickets/${ticketItem.id}`}>
             <Card key={ticketItem.id} className="bg-gray-900 text-white">
@@ -101,7 +106,7 @@ const DashboardListTickets: React.FC = () => {
         ))}
       </div>
       <div className="flex justify-center py-8">
-        {tickets && (
+        {tickets && tickets.content.length > 0 && (
           <SimplePagination pagination={tickets} onPageChange={setPage} />
         )}
       </div>

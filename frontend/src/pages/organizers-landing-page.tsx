@@ -22,7 +22,7 @@ const OrganizersLandingPage: React.FC = () => {
               onClick={() => navigate("/dashboard/events")}
               className="cursor-pointer"
             >
-              Dashboard
+              Manage Events
             </Button>
             <Button
               className="cursor-pointer"

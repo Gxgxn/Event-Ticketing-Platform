@@ -6,7 +6,7 @@ const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
 
   if (isLoading) {
-    <p>Loading...</p>;
+    return <p>Loading...</p>;
   }
 
   if (isOrganizer) {

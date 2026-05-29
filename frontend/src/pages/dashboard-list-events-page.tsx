@@ -178,6 +178,11 @@ const DashboardListEventsPage: React.FC = () => {
 
         {/* Event Cards */}
         <div className="space-y-2">
+          {events?.content.length === 0 && (
+            <p className="text-center text-gray-400 py-12">
+              No events yet. Create one to get started!
+            </p>
+          )}
           {events?.content.map((eventItem) => (
             <Card className="bg-gray-900 border-gray-700 text-white">
               <CardHeader>
@@ -262,7 +267,7 @@ const DashboardListEventsPage: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center py-8">
-        {events && (
+        {events && events.content.length > 0 && (
           <SimplePagination pagination={events} onPageChange={setPage} />
         )}
       </div>

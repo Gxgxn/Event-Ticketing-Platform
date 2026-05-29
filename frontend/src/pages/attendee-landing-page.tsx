@@ -9,12 +9,20 @@ import { listPublishedEvents, searchPublishedEvents } from "@/lib/api";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import PublishedEventCard from "@/components/published-event-card";
 import { SimplePagination } from "@/components/simple-pagination";
+import { useRoles } from "@/hooks/use-roles";
 
 const AttendeeLandingPage: React.FC = () => {
   const { isAuthenticated, isLoading, signinRedirect, signoutRedirect } =
     useAuth();
+  const { isOrganizer, isStaff } = useRoles();
 
   const navigate = useNavigate();
+
+  const dashboardLabel = isOrganizer
+    ? "Manage Events"
+    : isStaff
+      ? "Validate Tickets"
+      : "My Tickets";
 
   const [page, setPage] = useState(0);
   const [publishedEvents, setPublishedEvents] = useState<
@@ -89,7 +97,7 @@ const AttendeeLandingPage: React.FC = () => {
               onClick={() => navigate("/dashboard")}
               className="cursor-pointer"
             >
-              Dashboard
+              {dashboardLabel}
             </Button>
             <Button
               className="cursor-pointer"

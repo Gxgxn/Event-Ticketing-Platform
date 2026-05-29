@@ -6,6 +6,7 @@ RUN npm ci
 COPY . .
 ARG VITE_OIDC_AUTHORITY
 ARG VITE_OIDC_REDIRECT_URI
+ARG VITE_OIDC_POST_LOGOUT_URI
 RUN npm run build
 
 # ---- Run stage ----

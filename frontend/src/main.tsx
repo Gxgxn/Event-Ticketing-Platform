@@ -108,6 +108,10 @@ const oidcConfig = {
   authority: import.meta.env.VITE_OIDC_AUTHORITY ?? "http://localhost:9090/realms/event-ticket-platform",
   client_id: "event-ticket-platform-app",
   redirect_uri: import.meta.env.VITE_OIDC_REDIRECT_URI ?? "http://localhost:5173/callback",
+  post_logout_redirect_uri: import.meta.env.VITE_OIDC_POST_LOGOUT_URI ?? "http://localhost:5173/",
+  onSigninCallback: () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  },
 };
 
 createRoot(document.getElementById("root")!).render(

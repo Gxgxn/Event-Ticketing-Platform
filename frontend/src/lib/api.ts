@@ -13,6 +13,21 @@ import {
   UpdateEventRequest,
 } from "@/domain/domain";
 
+async function parseJson(response: Response): Promise<any> {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
+function throwApiError(status: number, body: any): never {
+  if (isErrorResponse(body)) {
+    throw new Error(body.error);
+  }
+  throw new Error(`Request failed with status ${status}`);
+}
+
 export const createEvent = async (
   accessToken: string,
   request: CreateEventRequest,
@@ -26,15 +41,8 @@ export const createEvent = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
-
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throwApiError(response.status, await parseJson(response));
   }
 };
 
@@ -52,15 +60,8 @@ export const updateEvent = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
-
   if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throwApiError(response.status, await parseJson(response));
   }
 };
 
@@ -76,18 +77,9 @@ export const listEvents = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as SpringBootPagination<EventSummary>;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as SpringBootPagination<EventSummary>;
 };
 
 export const getEvent = async (
@@ -102,18 +94,9 @@ export const getEvent = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as EventDetails;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as EventDetails;
 };
 
 export const deleteEvent = async (
@@ -129,13 +112,7 @@ export const deleteEvent = async (
   });
 
   if (!response.ok) {
-    const responseBody = await response.json();
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throwApiError(response.status, await parseJson(response));
   }
 };
 
@@ -149,18 +126,9 @@ export const listPublishedEvents = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as SpringBootPagination<PublishedEventSummary>;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as SpringBootPagination<PublishedEventSummary>;
 };
 
 export const searchPublishedEvents = async (
@@ -177,18 +145,9 @@ export const searchPublishedEvents = async (
     },
   );
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as SpringBootPagination<PublishedEventSummary>;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as SpringBootPagination<PublishedEventSummary>;
 };
 
 export const getPublishedEvent = async (
@@ -201,18 +160,9 @@ export const getPublishedEvent = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as PublishedEventDetails;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as PublishedEventDetails;
 };
 
 export const purchaseTicket = async (
@@ -232,13 +182,7 @@ export const purchaseTicket = async (
   );
 
   if (!response.ok) {
-    const responseBody = await response.json();
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
+    throwApiError(response.status, await parseJson(response));
   }
 };
 
@@ -254,18 +198,9 @@ export const listTickets = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as SpringBootPagination<TicketSummary>;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as SpringBootPagination<TicketSummary>;
 };
 
 export const getTicket = async (
@@ -280,18 +215,9 @@ export const getTicket = async (
     },
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as TicketDetails;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as TicketDetails;
 };
 
 export const getTicketQr = async (
@@ -305,11 +231,10 @@ export const getTicketQr = async (
     },
   });
 
-  if (response.ok) {
-    return await response.blob();
-  } else {
-    throw new Error("Unable to get ticket QR code");
+  if (!response.ok) {
+    throwApiError(response.status, await parseJson(response));
   }
+  return await response.blob();
 };
 
 export const validateTicket = async (
@@ -325,16 +250,7 @@ export const validateTicket = async (
     body: JSON.stringify(request),
   });
 
-  const responseBody = await response.json();
-
-  if (!response.ok) {
-    if (isErrorResponse(responseBody)) {
-      throw new Error(responseBody.error);
-    } else {
-      console.error(JSON.stringify(responseBody));
-      throw new Error("An unknown error occurred");
-    }
-  }
-
-  return responseBody as Promise<TicketValidationResponse>;
+  const body = await parseJson(response);
+  if (!response.ok) throwApiError(response.status, body);
+  return body as TicketValidationResponse;
 };

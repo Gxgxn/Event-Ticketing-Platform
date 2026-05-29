@@ -1,11 +1,14 @@
 {$DOMAIN} {
-    handle /realms/* {
+    handle /realms* {
         reverse_proxy keycloak:8080
     }
-    handle /resources/* {
+    handle /resources* {
         reverse_proxy keycloak:8080
     }
-    handle /admin/* {
+    handle /admin* {
+        reverse_proxy keycloak:8080
+    }
+    handle /js* {
         reverse_proxy keycloak:8080
     }
 
